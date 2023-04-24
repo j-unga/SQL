@@ -1,0 +1,33 @@
+
+
+CREATE TABLE toy_store (id INTEGER PRIMARY KEY, item TEXT, aisle INTEGER, price INTEGER, label_color TEXT);
+
+
+INSERT INTO toy_store
+
+VALUES
+(1, "horse", 3, 12, "brown"),
+(2, "doll", 4, 5, "pink"),
+(3, "ball", 7, 2, "yellow"),
+(4, "guitar", 2, 15, "blue"),
+(5, "playhouse", 4, 24, "purple"),
+(6, "car", 7, 3, "orange"),
+(7, "blocks", 8, 10, "grey"),
+(8, "piano", 1, 13, "blue"),
+(9, "flute", 5, 2, "blue"),
+(10, "cards", 5, 3, "red"),
+(11, "puzzle", 6, 6, "indigo"),
+(12, "crayons", 1, 2, "green"),
+(13, "book", 6, 9, "violet"),
+(14, "dinosaur", 3, 4, "tan"),
+(15, "superhero", 3, 14, "gold");
+
+--display database by price in ascending order
+SELECT * FROM toy_store ORDER BY price ASC;
+
+--display database where label color is blue
+SELECT * FROM toy_store WHERE label_color = "blue"; 
+
+--what is the total price of items greater than or equal to $10?
+SELECT SUM(price) FROM toy_store WHERE price >= 10;
+

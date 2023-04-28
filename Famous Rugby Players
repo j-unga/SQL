@@ -1,0 +1,58 @@
+CREATE TABLE rugby_players (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, team TEXT);
+
+INSERT INTO rugby_players VALUES
+(1, "Portia Woodman", 31, "Black Ferns"),
+(2, "Hallie Taufoou", 28, "USA Eagles"),
+(3, "Ruby Tui", 31, "Black Ferns"),
+(4, "Hope Rogers", 30, "USA Eagles"),
+(5, "Emily Scarratt", 33, "England"),
+(6, "Magali Harvey", 32, "Canada"),
+(7, "Charlotte Caslick", 28, "Australia"),
+(8, "Alev Kelter", 32, "USA Eagles");
+
+
+CREATE TABLE stats (name TEXT, tries INTEGER, games_played INTEGER);
+
+INSERT INTO stats VALUES
+("Portia Woodman", 205, 169),
+("Hallie Taufoou", 3, 7), 
+("Ruby Tui", 8, 10),
+("Hope Rogers", null, 37),
+("Emily Scarratt", null, 108),
+("Magali Harvey", 24, 52),
+("Charlotte Caslick", 155, 262),
+("Alev Kelter", 68, 60);
+
+
+CREATE TABLE game_type (type TEXT, player_id INTEGER);
+
+INSERT INTO game_type VALUES
+("7s/15s", 1),
+("15s", 2),
+("15s", 3),
+("15s", 4),
+("7s/15s", 5),
+("7s/15s", 6),
+("7s/15s", 7),
+("7s/15s", 8);
+
+--Show the athlete's age and the number of games they have played
+SELECT rugby_players.age, stats.games_played
+FROM rugby_players
+LEFT JOIN stats
+ON rugby_players.name = stats.name;
+
+
+--Displays the athletes name, they type of rugby that they play, and the number of tries they have scored
+SELECT rugby_players.name AS athlete, game_type.type, stats.tries
+FROM rugby_players
+JOIN game_type
+ON rugby_players.id = game_type.player_id
+JOIN stats
+ON rugby_players.name = stats.name;
+
+--Shows the athlete's name, who they play for and how many games they have played
+SELECT stats.name AS athlete, rugby_players.team, stats.games_played
+FROM stats
+JOIN rugby_players
+ON stats.name = rugby_players.name;

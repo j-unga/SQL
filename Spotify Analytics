@@ -1,0 +1,45 @@
+#For this project I downloaded Spotift data from Kaggle.
+#I then created a table and inserted the data downloaded.
+#From there I analyzed the data using SQL.
+
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness decimal(8,7) NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL );
+
+#The following SQL were used to explore the data.
+
+--What is the average energy of the top 5 songs?
+SELECT AVG(energy)
+FROM BIT_DB.Spotifydata
+ORDER BY popularity desc
+LIMIT 5;
+
+--Which artist(s) has the more than 2 songs listed in the data and how many songs do they have listed?
+SELECT artist_name, COUNT(track_name) AS number_songs
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name
+HAVING COUNT(track_name) >2
+ORDER BY number_songs asc;
+
+--List the top 10 songs by popularity, their artist and their danceability. 
+SELECT popularity, track_name, artist_name, danceability
+FROM BIT_DB.Spotifydata
+ORDER BY popularity desc
+LIMIT 10;
+

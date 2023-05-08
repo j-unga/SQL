@@ -1,4 +1,4 @@
-#For this project 
+#For this project I used SQL to problem solve using the data on this website.
 
 --Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
 SELECT DISTINCT city FROM station

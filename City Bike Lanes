@@ -1,0 +1,31 @@
+#In this project, using a CTE and window fuction, I was able to query the data that was provided about City Bike Lanes.
+
+CREATE TABLE BIT_DB.CityBikeLanes (
+id integer primary key,
+year_installed year not null,
+year_updated year not null,
+street varchar not null,
+width_feet integer not null,
+safetyrating integer not null,
+protected varchar not null);
+
+--Using a CTE, list the bike lanes that have an average of 4.0 or higher and label them as a "Safe Lane".
+WITH safety_average_cte AS 
+(
+SELECT c.street, AVG(c.safetyrating) AS rating
+FROM CityBikeLanes c
+GROUP BY c.street 
+)
+SELECT street, rating, 'Safe Lane' AS tag
+FROM safety_average_cte
+WHERE rating >= 4;
+
+--Using a window function, list of all the bike lanes, both safety ratings for each lane, 
+  the average safety rating for each lane, and a label with the recommendation as "Remove", "Leave As-Is", or "Improvements Needed"
+SELECT street, safetyrating, AVG(safetyrating) OVER (PARTITION BY street) as "Avg_safety_rating",
+CASE 
+WHEN AVG(safetyrating) OVER (PARTITION BY street) >= 4 THEN "Leave As-Is"
+WHEN AVG(safetyrating) OVER (PARTITION BY street) < 2.5 THEN "Remove"
+ELSE "Improvements Needed"
+END AS "Recommendation"
+FROM CityBikeLanes;

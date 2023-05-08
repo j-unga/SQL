@@ -26,3 +26,10 @@ GROUP BY h.hacker_id, h.name
 HAVING COUNT(*) > 1
 ORDER BY COUNT(*) DESC, h.hacker_id;
 
+
+--Query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+SELECT SUM(city.population) 
+FROM city
+JOIN country c
+ON city.countrycode = c.code
+WHERE continent = 'Asia';
